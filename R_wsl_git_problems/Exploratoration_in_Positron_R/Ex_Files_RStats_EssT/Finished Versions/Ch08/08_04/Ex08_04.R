@@ -32,9 +32,11 @@ s3d$plane3d(plane)
 # NOTE: This will cause RStudio to crash when graphics 
 # window is closed. Instead, run this in the standard, 
 # console version of R.
-install.packages("rgl")
+# mamba install r-rgl
+# install.packages("rgl")
 require("rgl")
 require("RColorBrewer")
+
 plot3d(iris$Petal.Length,  # x variable
        iris$Petal.Width,   # y variable
        iris$Sepal.Length,  # z variable
