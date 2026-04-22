@@ -1,10 +1,9 @@
 #!/usr/bin/env Rscript
 # env in bash 各种包装在了 DE_R45 环境 , Regular_bioinfo lacks ggrepel and ashr
-# mamba activate DE_R45
-# mamba activate regular_bioinfo 
+# mamba activate DE_R45                 # # mamba activate regular_bioinfo  
 
-setwd("/home/gao/projects/2026_Item7_LZJ/scripts/")
-
+setwd("/home/gao/projects/2026_Item9_gc/scripts/")
+getwd()
 # 跑完的输出文件：
 # DEG_Test_1vsControl.csv
 # DEG_Test_2vsControl.csv

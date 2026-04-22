@@ -1,0 +1,74 @@
+executor >  local (395)
+[c7/ee6988] process > NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER (GRCh38.primary_assembly.genome.fa)                                        [100%] 1 of 1 ✔
+executor >  local (395)
+[c7/ee6988] process > NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER (GRCh38.primary_assembly.genome.fa)                                        [100%] 1 of 1 ✔
+executor >  local (395)
+[c7/ee6988] process > NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER (GRCh38.primary_assembly.genome.fa)                                        [100%] 1 of 1 ✔
+[93/01c1f8] process > NFCORE_RNASEQ:PREPARE_GENOME:GTF2BED (GRCh38.primary_assembly.genome.filtered.gtf)                                 [100%] 1 of 1 ✔
+[b9/b72fac] process > NFCORE_RNASEQ:PREPARE_GENOME:MAKE_TRANSCRIPTS_FASTA (rsem/GRCh38.primary_assembly.genome.fa)                       [100%] 1 of 1 ✔
+[19/391bfc] process > NFCORE_RNASEQ:PREPARE_GENOME:CUSTOM_GETCHROMSIZES (GRCh38.primary_assembly.genome.fa)                              [100%] 1 of 1 ✔
+[-        ] process > NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:CAT_FASTQ                                                -
+executor >  local (396)
+[c7/ee6988] process > NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER (GRCh38.primary_assembly.genome.fa)                                        [100%] 1 of 1 ✔
+[93/01c1f8] process > NFCORE_RNASEQ:PREPARE_GENOME:GTF2BED (GRCh38.primary_assembly.genome.filtered.gtf)                                 [100%] 1 of 1 ✔
+[b9/b72fac] process > NFCORE_RNASEQ:PREPARE_GENOME:MAKE_TRANSCRIPTS_FASTA (rsem/GRCh38.primary_assembly.genome.fa)                       [100%] 1 of 1 ✔
+[19/391bfc] process > NFCORE_RNASEQ:PREPARE_GENOME:CUSTOM_GETCHROMSIZES (GRCh38.primary_assembly.genome.fa)                              [100%] 1 of 1 ✔
+[-        ] process > NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:CAT_FASTQ                                                -
+executor >  local (396)
+[c7/ee6988] process > NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER (GRCh38.primary_assembly.genome.fa)                                        [100%] 1 of 1 ✔
+[93/01c1f8] process > NFCORE_RNASEQ:PREPARE_GENOME:GTF2BED (GRCh38.primary_assembly.genome.filtered.gtf)                                 [100%] 1 of 1 ✔
+[b9/b72fac] process > NFCORE_RNASEQ:PREPARE_GENOME:MAKE_TRANSCRIPTS_FASTA (rsem/GRCh38.primary_assembly.genome.fa)                       [100%] 1 of 1 ✔
+executor >  local (396)
+[c7/ee6988] process > NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER (GRCh38.primary_assembly.genome.fa)                                        [100%] 1 of 1 ✔
+[93/01c1f8] process > NFCORE_RNASEQ:PREPARE_GENOME:GTF2BED (GRCh38.primary_assembly.genome.filtered.gtf)                                 [100%] 1 of 1 ✔
+[b9/b72fac] process > NFCORE_RNASEQ:PREPARE_GENOME:MAKE_TRANSCRIPTS_FASTA (rsem/GRCh38.primary_assembly.genome.fa)                       [100%] 1 of 1 ✔
+[19/391bfc] process > NFCORE_RNASEQ:PREPARE_GENOME:CUSTOM_GETCHROMSIZES (GRCh38.primary_assembly.genome.fa)                              [100%] 1 of 1 ✔
+[-        ] process > NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:CAT_FASTQ                                                -
+[a3/8c6b56] process > NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (MQ-07-81_1)     [100%] 12 of 12 ✔
+[0c/abe999] process > NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:TRIMGALORE (MQ-07-99_2) [100%] 12 of 12 ✔
+[-        ] process > NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_SUBSAMPLE_FQ_SALMON:SALMON_INDEX                   -
+[-        ] process > NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_SUBSAMPLE_FQ_SALMON:FQ_SUBSAMPLE                   -
+[-        ] process > NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_SUBSAMPLE_FQ_SALMON:SALMON_QUANT                   -
+[e0/785850] process > NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:STAR_ALIGN (VK-8-101_1)                                                            [100%] 12 of 12 ✔
+[94/0d31e5] process > NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (VK-8-101_1)                                 [100%] 12 of 12 ✔
+[0e/8ef7a4] process > NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (VK-8-101_1)                                [100%] 12 of 12 ✔
+[45/9246e4] process > NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (VK-8-101_1)             [100%] 12 of 12 ✔
+[1b/dafcb9] process > NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (DMSO1)               [100%] 12 of 12 ✔
+[69/70fe5a] process > NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (MQ-07-99_1)          [100%] 12 of 12 ✔
+[40/de5421] process > NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SALMON_QUANT (VK-8-101_1)                                                [100%] 12 of 12 ✔
+[16/8794b5] process > NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:CUSTOM_TX2GENE (null)                                                    [100%] 1 of 1 ✔
+[8a/2648e0] process > NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:TXIMETA_TXIMPORT                                                         [100%] 1 of 1 ✔
+[fd/96f80b] process > NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SE_GENE (all_samples)                                                    [100%] 1 of 1 ✔
+[b6/fde86a] process > NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SE_GENE_LENGTH_SCALED (all_samples)                                      [100%] 1 of 1 ✔
+[35/795c53] process > NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SE_GENE_SCALED (all_samples)                                             [100%] 1 of 1 ✔
+[c2/f8e6e3] process > NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SE_TRANSCRIPT (all_samples)                                              [100%] 1 of 1 ✔
+[e9/e38094] process > NFCORE_RNASEQ:RNASEQ:DESEQ2_QC_STAR_SALMON                                                                         [100%] 1 of 1 ✔
+[b8/0716c1] process > NFCORE_RNASEQ:RNASEQ:BAM_MARKDUPLICATES_PICARD:PICARD_MARKDUPLICATES (VK-8-101_1)                                  [100%] 12 of 12 ✔
+[fd/469fb7] process > NFCORE_RNASEQ:RNASEQ:BAM_MARKDUPLICATES_PICARD:SAMTOOLS_INDEX (VK-8-101_1)                                         [100%] 12 of 12 ✔
+[2c/ed390d] process > NFCORE_RNASEQ:RNASEQ:BAM_MARKDUPLICATES_PICARD:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (DMSO3)                           [100%] 12 of 12 ✔
+[85/747fbf] process > NFCORE_RNASEQ:RNASEQ:BAM_MARKDUPLICATES_PICARD:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (MQ-07-99_3)                   [100%] 12 of 12 ✔
+[89/622475] process > NFCORE_RNASEQ:RNASEQ:BAM_MARKDUPLICATES_PICARD:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (DMSO3)                        [100%] 12 of 12 ✔
+[28/eb5a3a] process > NFCORE_RNASEQ:RNASEQ:STRINGTIE_STRINGTIE (VK-8-101_1)                                                              [100%] 12 of 12 ✔
+[a1/4e9e1f] process > NFCORE_RNASEQ:RNASEQ:SUBREAD_FEATURECOUNTS (VK-8-101_1)                                                            [100%] 12 of 12 ✔
+[0c/b3ff46] process > NFCORE_RNASEQ:RNASEQ:MULTIQC_CUSTOM_BIOTYPE (VK-8-101_1)                                                           [100%] 12 of 12 ✔
+[de/6ef9b2] process > NFCORE_RNASEQ:RNASEQ:BEDTOOLS_GENOMECOV_FW (VK-8-101_1)                                                            [100%] 12 of 12 ✔                                           [e2/6a9c78] process > NFCORE_RNASEQ:RNASEQ:BEDTOOLS_GENOMECOV_REV (VK-8-101_1)                                                           [100%] 12 of 12 ✔
+[52/5ec3d8] process > NFCORE_RNASEQ:RNASEQ:BEDGRAPH_BEDCLIP_BEDGRAPHTOBIGWIG_FORWARD:UCSC_BEDCLIP (VK-8-101_1)                           [100%] 12 of 12 ✔                                           [36/38c695] process > NFCORE_RNASEQ:RNASEQ:BEDGRAPH_BEDCLIP_BEDGRAPHTOBIGWIG_FORWARD:UCSC_BEDGRAPHTOBIGWIG (VK-8-101_1)                  [100%] 12 of 12 ✔
+[2e/d56f73] process > NFCORE_RNASEQ:RNASEQ:BEDGRAPH_BEDCLIP_BEDGRAPHTOBIGWIG_REVERSE:UCSC_BEDCLIP (VK-8-101_1)                           [100%] 12 of 12 ✔
+[ba/9d0259] process > NFCORE_RNASEQ:RNASEQ:BEDGRAPH_BEDCLIP_BEDGRAPHTOBIGWIG_REVERSE:UCSC_BEDGRAPHTOBIGWIG (MQ-07-99_1)                  [100%] 12 of 12 ✔
+[ad/7fba40] process > NFCORE_RNASEQ:RNASEQ:QUALIMAP_RNASEQ (VK-8-101_1)                                                                  [100%] 12 of 12 ✔                                           [6d/15bf59] process > NFCORE_RNASEQ:RNASEQ:DUPRADAR (MQ-07-99_3)                                                                         [100%] 12 of 12 ✔
+[29/ba9203] process > NFCORE_RNASEQ:RNASEQ:BAM_RSEQC:RSEQC_BAMSTAT (VK-8-101_1)                                                          [100%] 12 of 12 ✔                                           [27/3b0509] process > NFCORE_RNASEQ:RNASEQ:BAM_RSEQC:RSEQC_INNERDISTANCE (VK-8-101_1)                                                    [100%] 12 of 12 ✔
+[c8/70164f] process > NFCORE_RNASEQ:RNASEQ:BAM_RSEQC:RSEQC_INFEREXPERIMENT (VK-8-101_1)                                                  [100%] 12 of 12 ✔
+[94/27c069] process > NFCORE_RNASEQ:RNASEQ:BAM_RSEQC:RSEQC_JUNCTIONANNOTATION (VK-8-101_1)                                               [100%] 12 of 12 ✔
+[7b/0d046b] process > NFCORE_RNASEQ:RNASEQ:BAM_RSEQC:RSEQC_JUNCTIONSATURATION (VK-8-101_1)                                               [100%] 12 of 12 ✔
+[5a/cb454a] process > NFCORE_RNASEQ:RNASEQ:BAM_RSEQC:RSEQC_READDISTRIBUTION (VK-8-101_1)                                                 [100%] 12 of 12 ✔
+[0c/ab1436] process > NFCORE_RNASEQ:RNASEQ:BAM_RSEQC:RSEQC_READDUPLICATION (VK-8-101_1)                                                  [100%] 12 of 12 ✔
+[50/3fc397] process > NFCORE_RNASEQ:RNASEQ:MULTIQC (1)                                                                                   [100%] 1 of 1 ✔
+-[nf-core/rnaseq] Pipeline completed successfully -
+
+Completed at: 22-Apr-2026 09:43:26
+Duration    : 11h 19m 51s
+CPU hours   : 271.7
+Succeeded   : 396
+
+
+(base) gao@us1:~/projects/2026_Item9_gc/scripts$ /usr/bin/python3 /home/gao/.positron-server/bin/f3aae65e0a1a11d39226cd884520f49301daef82/extensions/positron-python/python_files/printEnvVariablesToFile.py /home/gao/.positron-server/bin/f3aae65e0a1a11d39226cd884520f49301daef82/extensions/positron-python/python_files/deactivate/bash/envVars.txt
