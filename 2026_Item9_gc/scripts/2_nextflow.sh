@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 1. 进入您的脚本工作目录
-cd /home/gao/projects/2026_Item7_LZJ/scripts
+cd /home/gao/projects/2026_Item9_gc/scripts
 
 # 2. 清理可能存在的旧会话并创建新的 rnaseq 会话
 tmux kill-session -t rnaseq 2>/dev/null || true
@@ -26,9 +26,25 @@ tmux new -s rnaseq                    # 创建名为 'rnaseq' 的新会话并立
 # 限制 Nextflow 自身的内存开销，确保它不被 Killed
 export NXF_OPTS="-Xms512m -Xmx2g"
 
-# 在新的 tmux 会话中运行 Nextflow
-#  --remove_ribo_rna 因为是polyA 测序，所以不需要这行
+# WARN: Singularity cache directory has not been defined -- Remote image will be stored in the path: /Work_bio/gao/projects/2026_Item9_gc/scripts/work/singularity
+# -- Use the environment variable NXF_SINGULARITY_CACHEDIR to specify a different location
 
+# 这样做的好处：
+
+# 避免重复下载：nf-core 容器镜像只会下载一次并缓存在指定位置
+# 节省磁盘空间：不会在每次运行时都在 work/singularity 目录中存储重复的镜像
+# 提高性能：后续运行可以直接使用缓存的镜像，加快启动速度
+# 消除警告信息：不会再看到关于 Singularity 缓存目录未定义的警告
+# 修改后的脚本现在会将 Singularity 容器镜像缓存在 /home/gao/.singularity/nf-core 目录中，这是一个标准且合理的缓存位置。
+
+# 设置 Singularity 缓存目录以避免重复下载容器镜像
+export NXF_SINGULARITY_CACHEDIR="/home/gao/.singularity/nf-core"
+
+
+# 在新的 tmux 会话中运行 Nextflow
+#  删除 --remove_ribo_rna 因为是polyA 测序，所以不需要这行
+
+# WARN: Singularity cache directory has not been defined -- Remote image will be stored in the path: /Work_bio/gao/projects/2026_Item9_gc/scripts/work/singularity -- Use the environment variable NXF_SINGULARITY_CACHEDIR to specify a different location
 nextflow run nf-core/rnaseq \
     -r 3.15.1 \
     -profile singularity \
