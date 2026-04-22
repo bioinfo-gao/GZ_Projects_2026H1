@@ -7,8 +7,8 @@ import glob
 import os
 
 # 配置路径
-# fastq_base_dir = "/home/gao/Dropbox/LZJ/01.RawData/"
 fastq_base_dir = "/home/gao/Dropbox/P2026_04_20/Guangcan/"
+# fastq_base_dir = "/home/gao/Dropbox/LZJ/01.RawData/"
 
 original_csv = "/home/gao/projects/2026_Item7_LZJ/scripts/Analysis_LZJ.csv"
 output_samplesheet = "/home/gao/projects/2026_Item7_LZJ/scripts/nf_core_samplesheet.csv"
