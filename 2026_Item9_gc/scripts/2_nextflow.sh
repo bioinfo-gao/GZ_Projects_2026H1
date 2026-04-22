@@ -62,3 +62,5 @@ nextflow run nf-core/rnaseq \
 
 echo "Nextflow 已在 tmux 会话 'rnaseq' 中启动"
 echo "使用 'tmux a' 连接查看输出"
+
+# Ctrl + B , then D 退出 tmux 会话
