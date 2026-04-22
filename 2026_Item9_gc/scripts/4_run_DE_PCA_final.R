@@ -32,7 +32,7 @@ library(tidyr)
 library(ggrepel)
 
 # ================= 1. 路径设置 =================
-META_FILE   <- "Analysis_LZJ.csv"
+META_FILE   <- "gc.csv"                                                                             #META_FILE   <- "Analysis_LZJ.csv"
 COUNT_FILE  <- "../output_results/star_salmon/salmon.merged.gene_counts.tsv" 
 TPM_FILE    <- "../output_results/star_salmon/salmon.merged.gene_tpm.tsv"
 OUT_DIR     <- "../Data_Analysis/DE_PCA_Results"
@@ -102,10 +102,12 @@ for (path in QC_SOURCE_CANDIDATES) {
   }
 }
 
+QC_SRC
+
 if (!is.null(QC_SRC)) {
   # Define the specific destination path for QC files
   # [MODIFIED] Hardcoded destination path for QC folder
-  QC_DEST_DIR <- "/home/gao/projects/2026_Item7_LZJ/Data_Analysis/QC"
+  QC_DEST_DIR <- "/home/gao/projects/2026_Item9_gc/Data_Analysis/QC"
   
   # Create the destination directory if it doesn't exist
   dir.create(QC_DEST_DIR, showWarnings = FALSE, recursive = TRUE)
@@ -123,6 +125,9 @@ if (!is.null(QC_SRC)) {
   cat("⚠️  警告: 未找到常见的 QC 文件夹路径，跳过拷贝\n")
 }
 
+
+
+
 # Generate Bioinformatics_Analysis_Report.md with detailed content
 report_file <- file.path(OUT_DIR, "Bioinformatics_Analysis_Report.md")
 
@@ -139,7 +144,7 @@ report_content <- c(
   "# Bioinformatics Analysis Report",
   "",
   paste("Date:", Sys.Date()),
-  paste("Project:", "2026_Item7_LZJ"),
+  paste("Project:", "2026_Item9_gc"),
   "",
   "## 1. Overview",
   "This report summarizes the differential expression analysis and quality control metrics for the RNA-seq dataset.",
