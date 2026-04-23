@@ -1,0 +1,155 @@
+  workDir            : /Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/work
+  projectDir         : /home/gao/.nextflow/assets/nf-core/rnaseq
+  userName           : gao
+  profile            : singularity
+  configFiles        : 
+
+Input/output options
+  input              : /home/gao/projects/2026_Item10_rRNA_removal/scripts/Sample_Sheet2.csv
+  outdir             : ../output_results
+
+Reference genome options
+  fasta              : /Work_bio/references/Homo_sapiens/GRCh38/human_gencode_v45/GRCh38.primary_assembly.genome.fa
+  gtf                : /Work_bio/references/Homo_sapiens/GRCh38/human_gencode_v45/gencode.v45.annotation.gtf
+  star_index         : /Work_bio/references/Homo_sapiens/GRCh38/human_gencode_v45/star_index
+  gencode            : true
+
+Read filtering options
+  remove_ribo_rna    : true
+
+Alignment options
+  min_mapped_reads   : 5
+
+Optional outputs
+  save_non_ribo_reads: true
+
+Max job request options
+  max_cpus           : 28
+  max_memory         : 90.GB
+
+!! Only displaying parameters that differ from the pipeline defaults !!
+------------------------------------------------------
+If you use nf-core/rnaseq for your analysis please cite:
+
+* The pipeline
+  https://doi.org/10.5281/zenodo.1400710
+
+* The nf-core framework
+  https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+  https://github.com/nf-core/rnaseq/blob/master/CITATIONS.md
+------------------------------------------------------
+executor >  local (3)
+executor >  local (3)
+executor >  local (3)
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER                                                                 [  0%] 0 of 1
+executor >  local (3)
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER                                                                 [  0%] 0 of 1
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:GTF2BED                                                                    -
+executor >  local (3)
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER                                                                 [  0%] 0 of 1
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:GTF2BED                                                                    -
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:MAKE_TRANSCRIPTS_FASTA                                                     -
+[27/d0c6fd] NFCORE_RNASEQ:PREPARE_GENOME:CUSTOM_GETCHROMSIZES (GRCh38.primary_assembly.genome.fa)                   [  0%] 0 of 1
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:SORTMERNA_INDEX                                                            [  0%] 0 of 1
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:CAT_FASTQ                                     -
+[07/6a900f] NFC…_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (ch_2A) [  0%] 0 of 24
+[84/f5aab9] NFC…SEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:TRIMGALORE (ch_2C) [  0%] 0 of 24
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:SORTMERNA_INDEX                               [  0%] 0 of 1
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:SORTMERNA                                     -
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_SUBSAMPLE_FQ_SALMON:SALMON_INDEX        -
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_SUBSAMPLE_FQ_SALMON:FQ_SUBSAMPLE        -
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_SUBSAMPLE_FQ_SALMON:SALMON_QUANT        -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:STAR_ALIGN                                                              -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT                                   -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX                                  -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS               -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT            -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS            -
+[-        ] NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SALMON_QUANT                                                  -
+[-        ] NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:CUSTOM_TX2GENE                                                -
+[-        ] NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:TXIMETA_TXIMPORT                                              -
+[-        ] NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SE_GENE                                                       -
+[-        ] NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SE_GENE_LENGTH_SCALED                                         -
+Plus 27 more processes waiting for tasks…
+Staging foreign file: https://raw.githubusercontent.com/biocore/sortmerna/v4.3.4/data/rRNA_databases/rfam-5s-database-id98.fasta
+Staging foreign file: https://raw.githubusercontent.com/biocore/sortmerna/v4.3.4/data/rRNA_databases/silva-bac-16s-id90.fasta
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition  workDir            : /Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/work
+  projectDir         : /home/gao/.nextflow/assets/nf-core/rnaseq
+  userName           : gao
+  profile            : singularity
+  configFiles        : 
+
+Input/output options
+  input              : /home/gao/projects/2026_Item10_rRNA_removal/scripts/Sample_Sheet2.csv
+  outdir             : ../output_results
+
+Reference genome options
+  fasta              : /Work_bio/references/Homo_sapiens/GRCh38/human_gencode_v45/GRCh38.primary_assembly.genome.fa
+  gtf                : /Work_bio/references/Homo_sapiens/GRCh38/human_gencode_v45/gencode.v45.annotation.gtf
+  star_index         : /Work_bio/references/Homo_sapiens/GRCh38/human_gencode_v45/star_index
+  gencode            : true
+
+Read filtering options
+  remove_ribo_rna    : true
+
+Alignment options
+  min_mapped_reads   : 5
+
+Optional outputs
+  save_non_ribo_reads: true
+
+Max job request options
+  max_cpus           : 28
+  max_memory         : 90.GB
+
+!! Only displaying parameters that differ from the pipeline defaults !!
+------------------------------------------------------
+If you use nf-core/rnaseq for your analysis please cite:
+
+* The pipeline
+  https://doi.org/10.5281/zenodo.1400710
+
+* The nf-core framework
+  https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+  https://github.com/nf-core/rnaseq/blob/master/CITATIONS.md
+------------------------------------------------------
+executor >  local (3)
+executor >  local (3)
+executor >  local (3)
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER                                                                 [  0%] 0 of 1
+executor >  local (3)
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER                                                                 [  0%] 0 of 1
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:GTF2BED                                                                    -
+executor >  local (3)
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER                                                                 [  0%] 0 of 1
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:GTF2BED                                                                    -
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:MAKE_TRANSCRIPTS_FASTA                                                     -
+[27/d0c6fd] NFCORE_RNASEQ:PREPARE_GENOME:CUSTOM_GETCHROMSIZES (GRCh38.primary_assembly.genome.fa)                   [  0%] 0 of 1
+[-        ] NFCORE_RNASEQ:PREPARE_GENOME:SORTMERNA_INDEX                                                            [  0%] 0 of 1
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:CAT_FASTQ                                     -
+[07/6a900f] NFC…_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (ch_2A) [  0%] 0 of 24
+[84/f5aab9] NFC…SEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:TRIMGALORE (ch_2C) [  0%] 0 of 24
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:SORTMERNA_INDEX                               [  0%] 0 of 1
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:SORTMERNA                                     -
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_SUBSAMPLE_FQ_SALMON:SALMON_INDEX        -
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_SUBSAMPLE_FQ_SALMON:FQ_SUBSAMPLE        -
+[-        ] NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_SUBSAMPLE_FQ_SALMON:SALMON_QUANT        -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:STAR_ALIGN                                                              -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT                                   -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX                                  -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS               -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT            -
+[-        ] NFCORE_RNASEQ:RNASEQ:ALIGN_STAR:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS            -
+[-        ] NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SALMON_QUANT                                                  -
+[-        ] NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:CUSTOM_TX2GENE                                                -
+[-        ] NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:TXIMETA_TXIMPORT                                              -
+[-        ] NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SE_GENE                                                       -
+[-        ] NFCORE_RNASEQ:RNASEQ:QUANTIFY_STAR_SALMON:SE_GENE_LENGTH_SCALED                                         -
+Plus 27 more processes waiting for tasks…
+Staging foreign file: https://raw.githubusercontent.com/biocore/sortmerna/v4.3.4/data/rRNA_databases/rfam-5s-database-id98.fasta
+Staging foreign file: https://raw.githubusercontent.com/biocore/sortmerna/v4.3.4/data/rRNA_databases/silva-bac-16s-id90.fasta
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition
