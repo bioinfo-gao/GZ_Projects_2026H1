@@ -1,0 +1,8 @@
+/Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/rRNA_databases/rfam-5.8s-database-id98.fasta
+/Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/rRNA_databases/rfam-5s-database-id98.fasta
+/Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/rRNA_databases/silva-arc-16s-id95.fasta
+/Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/rRNA_databases/silva-arc-23s-id98.fasta
+/Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/rRNA_databases/silva-bac-16s-id90.fasta
+/Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/rRNA_databases/silva-bac-23s-id98.fasta
+/Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/rRNA_databases/silva-euk-18s-id95.fasta
+/Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/rRNA_databases/silva-euk-28s-id98.fasta
