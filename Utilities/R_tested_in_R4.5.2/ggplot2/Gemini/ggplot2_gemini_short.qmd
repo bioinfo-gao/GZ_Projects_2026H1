@@ -1,0 +1,117 @@
+---
+title: "ggplot2 Tutorial for Bioinformatics"
+author: "Zorin Gao <bioinfo.gaoi@gmail.com.com>"
+date: "`r Sys.Date()`"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# ggplot2 Tutorial for Bioinformatics Analysis
+
+针对生物信息学研究（特别是你正在进行的 RNA-seq 和单细胞分析），ggplot2 不仅仅是一个绘图工具，它是一套基于"图形语法"（Grammar of Graphics）的逻辑系统。
+
+以下是一份为你定制的高度详细教程，涵盖了从基础逻辑到生信实战进阶的内容。
+
+## 1. ggplot2 的核心哲学：图层 (Layers)
+
+ggplot2 的绘图逻辑就像在透明胶片上叠画：
+
+- **数据层 (Data)**: 你要画什么？
+- **映射层 (Aesthetics)**: 数据中的变量对应到画面的什么位置、颜色、形状？
+- **几何对象层 (Geometries)**: 用点、线还是柱状图展示？
+- **统计转换层 (Stats)**: 是否需要计算平均值、分位数？
+- **标尺控制层 (Scales)**: 颜色用什么色盘？轴的范围是多少？
+- **分面层 (Facets)**: 是否要按组分拆成小图？
+- **主题层 (Themes)**: 背景、字体、网格线等外观设置。
+
+## 2. 基础语法模板
+
+``{r}
+library(ggplot2)
+
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + 
+  <GEOM_FUNCTION>() +
+  <SCALE_FUNCTION>() +
+  <FACET_FUNCTION>() +
+  <THEME_FUNCTION>()
+```
+
+## 3. 核心要素详解
+
+### A. 审美映射 (Aesthetics - aes)
+
+`aes()` 负责将数据列映射到视觉属性。
+
+- `x`, `y`: 坐标轴。
+- `color`: 边框或点的颜色。
+- `fill`: 填充颜色（如柱状图、箱线图内部）。
+- `size`: 大小。
+- `shape`: 形状。
+- `alpha`: 透明度。
+
+### B. 几何对象 (Geoms)
+
+| 几何对象 (Geom) | 数据要求 | 生信典型应用场景 | 关键参数建议 |
+| :--- | :--- | :--- | :--- |
+| **`geom_point()`** | 连续型 x, y | PCA 主成分分析图、火山图 (Volcano Plot) | `alpha=0.5` (处理点重叠), `size` |
+| **`geom_tile()`** | 离散型 x, y | 差异表达基因热图 (Heatmap)、相关性矩阵 | `aes(fill = value)` |
+| **`geom_boxplot()`** | 离散型 x, 连续型 y | 比较不同组别间的基因表达量分布 | `outlier.shape = NA` (隐藏异常点以叠加散点) |
+| **`geom_violin()`** | 离散型 x, 连续型 y | 单细胞测序中 Marker 基因在不同 Cluster 的分布 | `trim = FALSE`, `scale = "width"` |
+| **`geom_bar()`** | 离散型 x | 样本分类统计、GO/KEGG 富集分析条形图 | `stat = "identity"` (当 y 轴已有数值时) |
+| **`geom_density2d()`** | 连续型 x, y | **[Wildcard]** 大样本量单细胞轨迹的等高线密度分布 | `color = "blue"` |
+| **`geom_jitter()`** | 离散型 x, 连续型 y | 在箱线图上叠加原始数据点，增加透明度 | `width = 0.2`, `alpha = 0.3` |
+
+## 4. Practical Examples
+
+### Example 1: Basic Scatter Plot (PCA-like)
+
+```{r}
+# Load required library
+library(ggplot2)
+
+# Create sample data similar to PCA results
+set.seed(123)
+pca_data <- data.frame(
+  PC1 = rnorm(100),
+  PC2 = rnorm(100),
+  group = factor(rep(c("Control", "Treatment"), each = 50))
+)
+```
+
+
+我理解问题了！您看到的是表格的Markdown源码而不是渲染后的表格。这通常是因为表格格式不正确或者缺少必要的空行。
+
+让我检查当前文件并修复表格格式问题：
+
+Read file
+ggplot2_gemini.qmd
+61-81
+我看到表格格式看起来是正确的，但问题可能出在表格前面的内容。让我检查表格前面的几行：
+
+Read file
+ggplot2_gemini.qmd
+56-66
+表格格式看起来是正确的。问题可能是因为Quarto对混合中文/英文内容的处理，或者是因为表格中的某些特殊字符。让我重新创建一个更标准的表格格式，并确保遵循Quarto的最佳实践：
+
+
+我已重新格式化表格以解决显示问题！主要修改如下：
+
+表格修复的关键改动
+简化表格语法：将原来的对齐语法 | :--- | :--- | 改为更简单的标准Markdown表格格式
+移除复杂字符：避免在表格中使用可能引起解析问题的特殊字符组合
+英文表头：将表头改为英文，这样更符合Quarto的最佳实践（因为您的文档规范要求可视化文本使用英文）
+确保空行：表格前后都有适当的空行分隔
+新的表格格式特点
+第一行：表头（英文，简洁明了）
+第二行：分隔线（简单的 -----|------------------|----------------------------|---------------）
+后续行：数据行，避免复杂的Markdown嵌套
+这种格式在Quarto中渲染更加可靠，不会显示原始的 | 符号和 :--- 对齐标记。
+
+现在表格应该能在HTML输出中正确显示为美观的表格，而不是显示Markdown源码。如果您还需要进一步调整，请告诉我具体的显示效果，我可以继续优化！
