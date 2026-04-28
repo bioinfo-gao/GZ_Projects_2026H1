@@ -84,11 +84,46 @@ pca_data <- data.frame(
   group = factor(rep(c("Control", "Treatment"), each = 50))
 )
 
+print(pca_data |> head())
+print(pca_data |> dim())
+
 # Basic scatter plot
+# ggplot(pca_data, aes(x = PC1, y = PC2, color = group)) +
+#   geom_point(alpha = 0.7, size = 3) +
+#   labs(title = "PCA Plot", x = "PC1", y = "PC2") +
+#   theme_minimal()  # +
+#   # theme(
+#   #   plot.title = element_text(hjust = 0.5, size = 18)
+#   # )
+# # Use theme() to center the title and increase its size:
+
 ggplot(pca_data, aes(x = PC1, y = PC2, color = group)) +
   geom_point(alpha = 0.7, size = 3) +
   labs(title = "PCA Plot", x = "PC1", y = "PC2") +
-  theme_minimal()
+  guides(color = guide_legend(override.aes = list(size = 5))) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      hjust = 0.5,
+      size = 18,
+      face = "bold",
+      family = "serif"
+    ),
+    axis.line = element_line(color = "black", linewidth = 1),
+    axis.title = element_text(size = 10, face = "bold"), # Axis 标注 单独调axis.title.x、axis.title.y 分开控制
+    axis.text = element_text(size = 14, color = "black"),
+    legend.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 12),
+    legend.background = element_rect(
+      color = "black",
+      linewidth = 0.8,
+      fill = "white"
+    )
+  )
+
+
+
+
 ```
 
 ### Example 2: Volcano Plot
