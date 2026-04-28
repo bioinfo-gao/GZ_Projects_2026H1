@@ -7,15 +7,15 @@ format:
     toc: true
     toc-depth: 3
     code-fold: true
+  pdf:
+    pdf-engine: xelatex
+    mainfont: "Noto Sans CJK SC"  # 或者使用你系统里有的字体，如 "WenQuanYi Micro Hei" 没有这行，无法显示中文  
 execute:
   echo: true
   warning: false
   message: false
 ---
 
-```{r}
-
-```
 # ggplot2 Tutorial for Bioinformatics Analysis
 
 针对生物信息学研究（特别是你正在进行的 RNA-seq 和单细胞分析），ggplot2 不仅仅是一个绘图工具，它是一套基于"图形语法"（Grammar of Graphics）的逻辑系统。
@@ -36,14 +36,9 @@ ggplot2 的绘图逻辑就像在透明胶片上叠画：
 
 ## 2. 基础语法模板
 
-``{r, run=FALSE}
+```{r, run=FALSE}
 library(ggplot2)
-<!-- 
-ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + 
-  <GEOM_FUNCTION>() +
-  <SCALE_FUNCTION>() +
-  <FACET_FUNCTION>() +
-  <THEME_FUNCTION>() -->
+
 ```
 
 ## 3. 核心要素详解
@@ -61,15 +56,18 @@ ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +
 
 ### B. 几何对象 (Geoms)
 
-Geom | Data Requirements | Bioinformatics Applications | Key Parameters
------|------------------|----------------------------|---------------
-`geom_point()` | Continuous x, y | PCA plots, Volcano plots | `alpha=0.5` (for overlapping points), `size`
-`geom_tile()` | Discrete x, y | Heatmaps, Correlation matrices | `aes(fill = value)`
-`geom_boxplot()` | Discrete x, Continuous y | Gene expression comparison across groups | `outlier.shape = NA` (hide outliers for overlay)
-`geom_violin()` | Discrete x, Continuous y | Marker gene distribution in scRNA-seq clusters | `trim = FALSE`, `scale = "width"`
-`geom_bar()` | Discrete x | Sample classification, GO/KEGG enrichment | `stat = "identity"` (when y values are pre-calculated)
-`geom_density2d()` | Continuous x, y | Contour density for large scRNA-seq trajectories | `color = "blue"`
-`geom_jitter()` | Discrete x, Continuous y | Overlay raw data points on boxplots | `width = 0.2`, `alpha = 0.3`
+如果你希望表格有标题或引用编号，可以在表格下方紧接着添加：
+
+| 几何对象 (Geom) | 数据要求 | 生信典型应用场景 | 关键参数建议 |
+| :--- | :--- | :--- | :--- |
+| **`geom_point()`** | 连续型 x, y | PCA 主成分分析图、火山图 (Volcano Plot) | `alpha=0.5`, `size` |
+| **`geom_tile()`** | 离散型 x, y | 差异表达基因热图 (Heatmap) | `aes(fill = value)` |
+| **`geom_boxplot()`** | 离散型 x, 连续型 y | 比较不同组别间的基因表达量分布 | `outlier.shape = NA` |
+| **`geom_violin()`** | 离散型 x, 连续型 y | 单细胞测序中 Cluster 基因分布 | `trim = FALSE` |
+| **`geom_bar()`** | 离散型 x | GO/KEGG 富集分析条形图 | `stat = "identity"` |
+| **`geom_density2d()`** | 连续型 x, y | **[Wildcard]** 大样本量单细胞轨迹密度分布 | `color = "blue"` |
+| **`geom_jitter()`** | 离散型 x, 连续型 y | 叠加原始数据点 | `width = 0.2`, `alpha = 0.3` |
+
 
 ## 4. Practical Examples
 
