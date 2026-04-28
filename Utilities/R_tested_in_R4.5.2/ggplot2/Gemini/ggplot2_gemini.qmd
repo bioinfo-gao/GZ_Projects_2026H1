@@ -27,7 +27,7 @@ execute:
 ggplot2 的绘图逻辑就像在透明胶片上叠画：
 
 - **数据层 (Data)**: 你要画什么？
-- **映射层 (Aesthetics)**: 数据中的变量对应到画面的什么位置、颜色、形状？
+- **映射层 (Aesthetics)**: 数据中的变量对应到画面的什么位置、颜色、形状？ ========== 最关键！
 - **几何对象层 (Geometries)**: 用点、线还是柱状图展示？
 - **统计转换层 (Stats)**: 是否需要计算平均值、分位数？
 - **标尺控制层 (Scales)**: 颜色用什么色盘？轴的范围是多少？
@@ -36,14 +36,14 @@ ggplot2 的绘图逻辑就像在透明胶片上叠画：
 
 ## 2. 基础语法模板
 
-``{r}
+``{r, run=FALSE}
 library(ggplot2)
-
+<!-- 
 ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + 
   <GEOM_FUNCTION>() +
   <SCALE_FUNCTION>() +
   <FACET_FUNCTION>() +
-  <THEME_FUNCTION>()
+  <THEME_FUNCTION>() -->
 ```
 
 ## 3. 核心要素详解
@@ -161,12 +161,12 @@ The Grammar of Graphics, developed by Leland Wilkinson, provides a structured ap
 
 The basic structure of a ggplot2 plot follows this pattern:
 
-```{r}
+```{r, run=FALSE}
 # Basic ggplot2 structure
-ggplot(data = <DATA>) +
-  <GEOM_FUNCTION>(
-    mapping = aes(<MAPPINGS>)
-  )
+# ggplot(data = <DATA>) +
+#   <GEOM_FUNCTION>(
+#     mapping = aes(<MAPPINGS>)
+#   )
 ```
 
 Let's start with a simple example using the built-in `mtcars` dataset:
