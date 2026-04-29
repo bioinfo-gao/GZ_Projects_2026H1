@@ -26,3 +26,13 @@ ps aux | grep -E "(tmux|$(tmux list-panes -F '#{pane_pid}' 2>/dev/null | tr '\n'
 
 # 删除所有 tmux session；是否允许我提升权限直接终止 tmux server 以清空全部 session？
 tmux kill-server
+
+# 发现 6 个 tmux session。我现在全部终止，并做一次确认。
+
+# Background terminal finished with tmux kill-server
+# tmux server 已终止，我再核对一次当前是否还有残留 session。
+# Background terminal finished with tmux ls
+
+# Worked for 10m 46s
+# 已清空所有 tmux session。
+# 原有的 session 是 6, RNA2, RNA3, RNA4, RNA5, rnaseq，我执行了 tmux kill-server。现在检查结果是 no server running on /tmp/tmux-1001/default，说明已经没有 tmux server 和 session 了
