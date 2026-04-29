@@ -26,6 +26,9 @@ fi
 
 
 
+# tmux new -s RNA5  
+
+tmux a
 
 echo "All rRNA database files verified. Starting pipeline..."
 
@@ -47,4 +50,38 @@ nextflow run nf-core/rnaseq \
     --max_cpus 28 \
     --max_memory '90.GB'
 
-    # 暂时移除 -resume 参数
+    # 暂时移除 -resume # 参数
+
+# 2026-04-26 修改 -resume  Ctrl C
+tmux a 
+
+cd /Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts
+
+# 限制 Nextflow 自身的内存开销，确保它不被 Killed
+export NXF_OPTS="-Xms512m -Xmx2g"
+# 设置 Singularity 缓存目录以避免重复下载容器镜像
+export NXF_SINGULARITY_CACHEDIR="/home/gao/.singularity/nf-core"
+
+# Check if rRNA databases exist locally
+RIBO_MANIFEST="/Work_bio/gao/projects/2026_Item10_rRNA_removal/scripts/rRNA_databases/sortmerna_database_manifest.txt"
+
+
+nextflow run nf-core/rnaseq \
+    -r 3.15.1 \
+    -profile singularity \
+    -c local_optimized.config \
+    -c avoid_download.config \
+    --input /home/gao/projects/2026_Item10_rRNA_removal/scripts/Sample_Sheet2.csv \
+    --outdir ../output_results \
+    --fasta /Work_bio/references/Homo_sapiens/GRCh38/human_gencode_v45/GRCh38.primary_assembly.genome.fa \
+    --gtf /Work_bio/references/Homo_sapiens/GRCh38/human_gencode_v45/gencode.v45.annotation.gtf \
+    --star_index /Work_bio/references/Homo_sapiens/GRCh38/human_gencode_v45/star_index \
+    --gencode \
+    --aligner star_salmon \
+    --remove_ribo_rna \
+    --ribo_database_manifest "$RIBO_MANIFEST" \
+    --save_non_ribo_reads \
+    --max_cpus 28 \
+    --max_memory '90.GB' \
+    -resume  #参数    
+    
