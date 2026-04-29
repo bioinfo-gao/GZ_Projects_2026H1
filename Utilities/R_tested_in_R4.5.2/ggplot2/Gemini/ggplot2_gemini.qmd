@@ -97,53 +97,181 @@ print(pca_data |> dim())
 #   # )
 # # Use theme() to center the title and increase its size:
 
-ggplot(pca_data, aes(x = PC1, y = PC2, color = group)) +
+ggplot(pca_data, aes(x = PC1, y = PC2, color = group)) + 
   geom_point(alpha = 0.7, size = 3) +
   labs(title = "PCA Plot", x = "PC1", y = "PC2") +
   guides(color = guide_legend(override.aes = list(size = 5))) +
   theme_minimal() +
+  # scale_x_continuous(expand = expansion(mult = 0.08)) + # “图中数据点离坐标轴边框太近”，那要改的是：
+  # scale_y_continuous(expand = expansion(mult = 0.08)) +
   theme(
     plot.title = element_text(
       hjust = 0.5,
       size = 18,
       face = "bold",
-      family = "serif"
+      family = "serif",
+      margin = margin(t = 15, b=15)                   # 增大标题和图主体之间的下边距 plot.margin = margin(t = 15, r = 10, b = 10, l = 10)
     ),
-    axis.line = element_line(color = "black", linewidth = 1),
-    axis.title = element_text(size = 10, face = "bold"), # Axis 标注 单独调axis.title.x、axis.title.y 分开控制
-    axis.text = element_text(size = 14, color = "black"),
-    legend.title = element_text(size = 14, face = "bold"),
+    panel.border = element_rect(                # 注意这一行和 panel.border一样，都是设置边线, 所有只能二选一
+      color = "black",
+      fill = NA,
+      linewidth = 1
+    ),
+    #axis.line = element_line(color = "black", linewidth = 1), # 注意这一行和 panel.border一样，都是设置边线, 所有只能二选一
+    plot.margin = margin(t = 10, r = 15, b = 10, l = 15)   ,      #  扩大整张图四周留白
+    axis.title = element_text(size =16, face = "bold"),            # x and y 轴标题 ， 这里是 PC1 PC2
+    axis.title.x = element_text(                                  # 增加x 轴标注 PC1 离开 x轴这条线的距离
+        margin = margin(t = 5)
+      ),
+    axis.text = element_text(size = 14, color = "black"),      # 坐标轴上的数字
+    legend.title = element_text(size = 14, face = "plain"), # must one of "plain", "bold", "italic", "oblique", or "bold.italic".
     legend.text = element_text(size = 12),
     legend.background = element_rect(
       color = "black",
-      linewidth = 0.8,
+      linewidth = 0.5,                     # 
       fill = "white"
     )
+
   )
-
-
-
-
 ```
 
 ### Example 2: Volcano Plot
 ```{r}
-# Create volcano plot data
+set.seed(120)
+log2 = c(
+  rnorm(800, mean = 0, sd = 1),
+  rnorm(100, mean = 0.5, sd = 1),
+  rnorm(100, mean = -0.5, sd = 0.8)
+)
+
 volcano_data <- data.frame(
-  log2FC = rnorm(1000, mean = 0, sd = 1),
+  log2FC = log2,
   pvalue = runif(1000, min = 1e-10, max = 1)
 )
-volcano_data$neg_log10_pval <- -log10(volcano_data$pvalue)
-volcano_data$significant <- ifelse(volcano_data$neg_log10_pval > 2 & abs(volcano_data$log2FC) > 1, "Significant", "Not Significant")
 
-# Volcano plot
+volcano_data$neg_log10_pval <- -log10(volcano_data$pvalue)
+
+volcano_data$significant <- ifelse(
+  volcano_data$neg_log10_pval > 2 & volcano_data$log2FC > 1, "Significant Increased",
+  ifelse(
+    volcano_data$neg_log10_pval > 2 & volcano_data$log2FC < -1, "Significant Reduced",
+    "Not Significant"
+  )
+)
+
 ggplot(volcano_data, aes(x = log2FC, y = neg_log10_pval, color = significant)) +
   geom_point(alpha = 0.6) +
-  scale_color_manual(values = c("Significant" = "red", "Not Significant" = "black")) +
+  scale_color_manual(values = c(
+    "Significant Increased" = "red",
+    "Significant Reduced" = "blue",
+    "Not Significant" = "black"
+  )) +
   labs(title = "Volcano Plot", x = "Log2 Fold Change", y = "-Log10(P-value)") +
   theme_minimal() +
   geom_vline(xintercept = c(-1, 1), linetype = "dashed", color = "gray") +
   geom_hline(yintercept = 2, linetype = "dashed", color = "gray")
+
+```
+
+```{r}
+# Create volcano plot data
+
+library(ggplot2)
+library(ggrepel)
+
+set.seed(123)
+
+log2 <- c(
+  rnorm(800, mean = 0, sd = 1),
+  rnorm(100, mean = 2.5, sd = 1),
+  rnorm(100, mean = -3.5, sd = 0.8)
+)
+
+volcano_data <- data.frame(
+  gene = paste0("Gene", 1:1000),
+  log2FC = log2,
+  pvalue = runif(1000, min = 1e-10, max = 1)
+)
+
+volcano_data$neg_log10_pval <- -log10(volcano_data$pvalue)
+
+volcano_data$group <- ifelse(
+  volcano_data$neg_log10_pval > 2 & volcano_data$log2FC > 1, "Up",
+  ifelse(
+    volcano_data$neg_log10_pval > 2 & volcano_data$log2FC < -1, "Down",
+    "NS"
+  )
+)
+
+volcano_data$group <- factor(volcano_data$group, levels = c("Up", "Down", "NS"))
+
+# 选显著点中最显著的 top 10
+top10_genes <- volcano_data[volcano_data$group != "NS", ]
+top10_genes <- top10_genes[order(top10_genes$pvalue), ]
+top10_genes <- head(top10_genes, 10)
+
+p <- ggplot() +
+  geom_point(
+    data = subset(volcano_data, group == "NS"),
+    aes(x = log2FC, y = neg_log10_pval),
+    color = "gray50", size = 2, alpha = 0.55
+  ) +
+  geom_point(
+    data = subset(volcano_data, group == "Down"),
+    aes(x = log2FC, y = neg_log10_pval, color = group),
+    size = 2.2, alpha = 0.85
+  ) +
+  geom_point(
+    data = subset(volcano_data, group == "Up"),
+    aes(x = log2FC, y = neg_log10_pval, color = group),
+    size = 2.2, alpha = 0.85
+  ) +
+  geom_text_repel(
+    data = top10_genes,
+    aes(x = log2FC, y = neg_log10_pval, label = gene, color = group),
+    size = 4,
+    box.padding = 0.5,
+    point.padding = 0.3,
+    segment.color = "gray40",
+    segment.size = 0.5,
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_vline(xintercept = c(-1, 1), linetype = "dashed", color = "gray50", linewidth = 0.7) +
+  geom_hline(yintercept = 2, linetype = "dashed", color = "gray50", linewidth = 0.7) +
+  scale_color_manual(values = c(
+    "Up" = "#D73027",
+    "Down" = "#4575B4",
+    "NS" = "gray50"
+  )) +
+  labs(
+    title = "Volcano Plot",
+    x = expression(log[2]~Fold~Change),
+    y = expression(-log[10]~italic(P-value)),
+    color = NULL
+  ) +
+  theme_classic() +
+  theme(
+    plot.title = element_text(
+      hjust = 0.5,
+      size = 18,
+      face = "bold",
+      family = "serif",
+      margin = margin(b = 12)
+    ),
+    axis.title.x = element_text(size = 15, face = "bold", margin = margin(t = 12)),
+    axis.title.y = element_text(size = 15, face = "bold", margin = margin(r = 12)),
+    axis.text = element_text(size = 13, color = "black"),
+    axis.line = element_line(color = "black", linewidth = 0.8),
+    legend.position = c(0.88, 0.88),
+    legend.text = element_text(size = 12),
+    legend.background = element_rect(fill = "white", color = "black", linewidth = 0.6),
+    legend.key = element_blank(),
+    plot.margin = margin(t = 20, r = 25, b = 20, l = 25)
+  )
+
+p
+
 ```
 
 ### Example 3: Box Plot with Jitter Points
