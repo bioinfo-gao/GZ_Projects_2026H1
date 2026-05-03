@@ -2,8 +2,10 @@
 # env in bash 各种包装在了 DE_R45 环境 , Regular_bioinfo lacks ggrepel and ashr
 # mamba activate DE_R45                 # # mamba activate regular_bioinfo
 
-setwd("/home/gao/projects/2026_Item9_gc/scripts/")
+setwd("/home/gao/projects/2026_Item11_Mingxue/scripts/")
 getwd()
+
+
 # 跑完的输出文件：
 # DEG_Test_1vsControl.csv
 # DEG_Test_2vsControl.csv
@@ -115,7 +117,7 @@ QC_SRC
 if (!is.null(QC_SRC)) {
   # Define the specific destination path for QC files
   # [MODIFIED] Hardcoded destination path for QC folder
-  QC_DEST_DIR <- "/home/gao/projects/2026_Item9_gc/Data_Analysis/QC"
+  QC_DEST_DIR <- "/home/gao/projects/2026_Item11_Mingxue/Data_Analysis/QC"
 
   # Create the destination directory if it doesn't exist
   dir.create(QC_DEST_DIR, showWarnings = FALSE, recursive = TRUE)
@@ -462,7 +464,7 @@ report_content <- c(
   "# Bioinformatics Analysis Report",
   "",
   paste("Date:", Sys.Date()),
-  paste("Project:", "2026_Item9_gc"),
+  paste("Project:", "2026_Item11_Mingxue"),
   "",
   "## 1. Overview",
   "This report summarizes the differential expression analysis and quality control metrics for the RNA-seq dataset.",
