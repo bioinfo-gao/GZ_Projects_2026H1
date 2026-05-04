@@ -1,0 +1,55 @@
+图/home/gao/Dropbox/Quote_03032601/Data_Analysis/DE_PCA_Results/Exploratory_Minxue_T_vs_Minxue_C.png
+10:03 PM
+
+
+
+Worked for 20s
+这张图可以这样看，但要先记住一个前提：它是 exploratory; no replicates，也就是只有 1 vs 1，没有重复，所以这里的红蓝点不是“统计显著差异基因”，只是“变化幅度比较大、值得关注的候选”。
+
+横轴是 log2 Fold Change：
+> 0 说明在 Minxue_T 更高。
+< 0 说明在 Minxue_C 更高。
+
+纵轴是 log10(mean normalized count + 1)：
+越高说明平均表达越高。
+越靠下说明表达量低，极端 log2FC 更容易受抽样波动影响。
+
+这张图的整体结论很明确：
+大多数基因都堆在中间灰色区域，说明整体上多数基因变化不大。
+左右两边各有一小批红点/蓝点，代表在 Minxue_T 或 Minxue_C 中偏高的候选基因。
+很多最极端的点都在图的下半部分，说明它们虽然 fold change 很大，但表达量并不高，解释时要保守。
+
+图上几个最醒目的基因可以这样读：
+
+偏高于 Minxue_T 的候选：
+ENSG00000280800，log2FC ≈ 7.18，T ≈ 72，C = 0
+ENSG00000280614，log2FC ≈ 7.08，T ≈ 67，C = 0
+5_8S_rRNA，log2FC ≈ 6.15，T ≈ 35，C = 0
+
+偏高于 Minxue_C 的候选：
+ENSG00000281181，log2FC ≈ -7.68，T = 0，C ≈ 102
+ENSG00000275895，log2FC ≈ -7.51，T = 0，C ≈ 91
+RNA5-8SN2，log2FC ≈ -7.31，T = 0，C ≈ 79
+TRDMT1，log2FC ≈ -7.27，T = 0，C ≈ 77
+ISG20，log2FC ≈ -6.74，T = 0，C ≈ 53
+
+几个解读重点：
+
+这图提示两组之间确实有一些“单边表达”的基因。
+像 TRDMT1、ISG20 这种在 Minxue_C 有、在 Minxue_T 接近 0 的基因，值得后续重点看。
+
+但不少最极端的点是 0 vs 非0 造成的。
+这种情况下 log2FC 会特别大，所以它更适合当“候选线索”，不适合直接下结论。
+
+一些标出来的是 rRNA、未命名 ENSG、或者疑似 pseudogene。
+比如 5_8S_rRNA、RNA5-8SN2，这类信号常常不如已知 protein-coding gene 那么好解释，生物学优先级通常会低一点。
+
+这张图更适合“筛候选”，不适合“报显著差异”。
+现阶段你可以说：
+Minxue_T 和 Minxue_C 间存在一批候选差异基因，部分基因呈现单边表达，但由于无 biological replicates，结果仅供 exploratory interpretation。
+
+如果你愿意，我下一步可以直接帮你把这个结果表里的候选基因再筛一版，比如只保留：
+protein-coding
+mean normalized count > 20 或 50
+|log2FC| > 2
+这样会比这张图更接近可汇报的名单。
