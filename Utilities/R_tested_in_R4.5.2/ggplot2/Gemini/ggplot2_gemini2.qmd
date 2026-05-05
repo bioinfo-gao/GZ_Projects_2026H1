@@ -87,16 +87,48 @@ pca_data <- data.frame(
 print(pca_data |> head())
 print(pca_data |> dim())
 
+
+# Basic scatter plot
+# 但这种格式调试极其困难，因为 在 R 的 ggplot2 中，+ 操作符不能放在新行的开头，这会导致语法错误
+# 无法独立删除一行
+
+ggplot(pca_data, aes(x = PC1, y = PC2, color = group)) +
+  geom_point(alpha = 0.7, size = 3) +
+  labs(title = "PCA Plot", x = "PC1", y = "PC2") +
+  theme_minimal()  # +
+#   theme(
+#     plot.title = element_text(hjust = 0.5, size = 28)
+#   )
+
+# Use theme() to center the title and increase its size:
+
 # Debugging-friendly approach: Assign layers to a variable
 # This allows easy commenting out of individual layers for troubleshooting
-# 以后都应该采取这种方法，
+# 以后都应该采取这种方法 << =================================================
 p <- ggplot(pca_data, aes(x = PC1, y = PC2, color = group))
 p <- p + geom_point(alpha = 0.7, size = 3)
 p <- p + labs(title = "PCA Plot", x = "PC1", y = "PC2")
-p <- p + guides(color = guide_legend(override.aes = list(size = 5)))
 p <- p + theme_minimal()
+p
+rm(p)  # 删除临时变量 p
 
-p 
+# Step-wide debugging: Assign each layer to a variable
+# 逐步调试的英文是 **step-by-step debugging**。
+# 其他相关的表达方式还包括：
+# - **incremental debugging**（增量调试）
+# - **layer-by-layer debugging**（逐层调试，特别适用于 ggplot2 这种图层叠加的情况）
+# - **interactive debugging**（交互式调试）
+# 以下是逐步调试: 
+p <- ggplot(pca_data, aes(x = PC1, y = PC2, color = group))             #  No point at all， BUT with default label 
+p             # 这个是显示图表的命令 
+p <- p + geom_point(alpha = 0.7, size = 3)                              #  with point AND Legned， size = 3 !
+p             # 这个是显示图表的命令 
+p <- p + labs(title = "PCA Plot", x = "PC1", y = "PC2")                 #  add title  in the TOP-Left
+p             # 这个是显示图表的命令 
+p <- p + guides(color = guide_legend(override.aes = list(size = 5)))    #  Customize legend point size to 5 for better visibility
+p <- p + theme_minimal()                                                # 去除了背景色，其实不美观
+p             # 这个是显示图表的命令 
+rm(p)         # 删除变量 用于反复调试test
 
 # Custom theme adjustments
 p <- p + theme(
