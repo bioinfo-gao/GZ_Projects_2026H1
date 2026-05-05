@@ -130,30 +130,78 @@ p <- p + theme_minimal()                                                # 去除
 p             # 这个是显示图表的命令 
 rm(p)         # 删除变量 用于反复调试test
 
-# Custom theme adjustments
+# ggplot(pca_data, aes(x = PC1, y = PC2, color = group)) + 
+#   geom_point(alpha = 0.7, size = 3) +
+#   labs(title = "PCA Plot", x = "PC1", y = "PC2") +
+#   guides(color = guide_legend(override.aes = list(size = 5))) +
+#   theme_minimal() +
+#   # scale_x_continuous(expand = expansion(mult = 0.08)) + # “图中数据点离坐标轴边框太近”，那要改的是：
+#   # scale_y_continuous(expand = expansion(mult = 0.08)) +
+#   theme(
+#     plot.title = element_text(
+#       hjust = 0.5,
+#       size = 18,
+#       face = "bold",
+#       family = "serif",
+#       margin = margin(t = 15, b=15)                   # 增大标题和图主体之间的下边距 plot.margin = margin(t = 15, r = 10, b = 10, l = 10)
+#     ),
+#     panel.border = element_rect(                # 注意这一行和 panel.border一样，都是设置边线, 所有只能二选一
+#       color = "black",
+#       fill = NA,
+#       linewidth = 1
+#     ),
+#     #axis.line = element_line(color = "black", linewidth = 1), # 注意这一行和 panel.border一样，都是设置边线, 所有只能二选一
+#     plot.margin = margin(t = 10, r = 15, b = 10, l = 15)   ,      #  扩大整张图四周留白
+#     axis.title = element_text(size =16, face = "bold"),            # x and y 轴标题 ， 这里是 PC1 PC2
+#     axis.title.x = element_text(                                  # 增加x 轴标注 PC1 离开 x轴这条线的距离
+#         margin = margin(t = 5)
+#       ),
+#     axis.text = element_text(size = 14, color = "black"),      # 坐标轴上的数字
+#     legend.title = element_text(size = 14, face = "plain"), # must one of "plain", "bold", "italic", "oblique", or "bold.italic".
+#     legend.text = element_text(size = 12),
+#     legend.background = element_rect(
+#       color = "black",
+#       linewidth = 0.5,                     # 
+#       fill = "white"
+#     )
+
+p <- ggplot(pca_data, aes(x = PC1, y = PC2, color = group))     # Initialize plot with data and basic aesthetics
+p  # Display the base plot
+p <- p + geom_point(alpha = 0.7, size = 3)                      # Add data points with specified transparency and size
+p  
+p <- p + labs(title = "PCA Plot", x = "PC1", y = "PC2")         # Add title and axis labels
+p  
+p <- p + guides(color = guide_legend(override.aes = list(size = 5)))  # Customize legend point size to 5 for better visibility
+p <- p + theme_minimal()  # Apply minimal theme (removes background grid and colors)
+p  
+# p <- p + scale_x_continuous(expand = expansion(mult = 0.08))  # Expand x-axis margins if needed
+# p <- p + scale_y_continuous(expand = expansion(mult = 0.08))  # Expand y-axis margins if needed
 p <- p + theme(
-  plot.title = element_text(
+  plot.title = element_text(                            #  设置标题各种格式 ==============================
     hjust = 0.5,
     size = 18,
     face = "bold",
     family = "serif",
-    margin = margin(t = 15, b = 15)
+    margin = margin(t = 15, b = 15)                      # Increase margin between title and plot body
   ),
-  panel.border = element_rect(
+  panel.border = element_rect(                           # 注意这一行和 axis.line一样，都含设置边线, 所有只能二选一
     color = "black",
     fill = NA,
-    linewidth = 1
+    linewidth = 1                                        # Add black border around the plot panel
   ),
-  plot.margin = margin(t = 10, r = 15, b = 10, l = 15),
-  axis.title = element_text(size = 16, face = "bold"),
-  axis.title.x = element_text(margin = margin(t = 5)),
-  axis.text = element_text(size = 14, color = "black"),
-  legend.title = element_text(size = 14, face = "plain"),
-  legend.text = element_text(size = 12),
+  # axis.line = element_line(color = "black", linewidth = 1),  # Alternative to panel.border for axis lines only # 注意这一行和 panel.border一样，都是设置边线, 所有只能二选一
+  plot.margin = margin(t = 10, r = 15, b = 10, l = 15),   # Increase overall plot margins
+  axis.title = element_text(size = 16, face = "bold"),    # Style for both x and y axis titles
+  axis.title.x = element_text(
+    margin = margin(t = 5)                                # Increase distance between x-axis title and axis line
+  ),
+  axis.text = element_text(size = 14, color = "black"),   # Style for axis tick labels
+  legend.title = element_text(size = 14, face = "plain"), # Style for legend title
+  legend.text = element_text(size = 12),                  # Style for legend text
   legend.background = element_rect(
     color = "black",
     linewidth = 0.5,
-    fill = "white"
+    fill = "white"  # Style for legend background box
   )
 )
 
