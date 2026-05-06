@@ -299,16 +299,13 @@ ggplot(volcano_data, aes(x = log2FC, y = neg_log10_pval, color = significant)) +
 
 ```{r}
 # Create volcano plot data
-
 library(ggplot2)
 library(ggrepel)
-
 set.seed(123)
-
 log2 <- c(
-  rnorm(800, mean = 0, sd = 1),
-  rnorm(100, mean = 2.5, sd = 1),
-  rnorm(100, mean = -3.5, sd = 0.8)
+  rnorm(700, mean = 0, sd = 0.6),
+  rnorm(150, mean = 2.5, sd = 0.4),
+  rnorm(150, mean = -1.5, sd = 0.5)
 )
 
 volcano_data <- data.frame(
@@ -318,7 +315,6 @@ volcano_data <- data.frame(
 )
 
 volcano_data$neg_log10_pval <- -log10(volcano_data$pvalue)
-
 volcano_data$group <- ifelse(
   volcano_data$neg_log10_pval > 2 & volcano_data$log2FC > 1, "Up",
   ifelse(
@@ -326,7 +322,6 @@ volcano_data$group <- ifelse(
     "NS"
   )
 )
-
 volcano_data$group <- factor(volcano_data$group, levels = c("Up", "Down", "NS"))
 
 # 选显著点中最显著的 top 10
@@ -334,6 +329,9 @@ top10_genes <- volcano_data[volcano_data$group != "NS", ]
 top10_genes <- top10_genes[order(top10_genes$pvalue), ]
 top10_genes <- head(top10_genes, 10)
 
+head(top10_genes)
+
+# print("top10_genes ", "is above")
 p <- ggplot() +
   geom_point(
     data = subset(volcano_data, group == "NS"),
@@ -342,7 +340,7 @@ p <- ggplot() +
   ) +
   geom_point(
     data = subset(volcano_data, group == "Down"),
-    aes(x = log2FC, y = neg_log10_pval, color = group),
+    aes(x = log2FC, y = neg_log10_pval, color = group),    # 设置颜色 and size
     size = 2.2, alpha = 0.85
   ) +
   geom_point(
@@ -350,7 +348,7 @@ p <- ggplot() +
     aes(x = log2FC, y = neg_log10_pval, color = group),
     size = 2.2, alpha = 0.85
   ) +
-  geom_text_repel(
+  geom_text_repel(                                       # 添加标签 and non-overlapping
     data = top10_genes,
     aes(x = log2FC, y = neg_log10_pval, label = gene, color = group),
     size = 4,
@@ -359,7 +357,7 @@ p <- ggplot() +
     segment.color = "gray40",
     segment.size = 0.5,
     max.overlaps = Inf,
-    show.legend = FALSE
+    # show.legend =  TRUE #FALSE # 
   ) +
   geom_vline(xintercept = c(-1, 1), linetype = "dashed", color = "gray50", linewidth = 0.7) +
   geom_hline(yintercept = 2, linetype = "dashed", color = "gray50", linewidth = 0.7) +
@@ -368,13 +366,13 @@ p <- ggplot() +
     "Down" = "#4575B4",
     "NS" = "gray50"
   )) +
-  labs(
+  labs(                            # <<<<<<<<<<<<<<<<<<=================================================== Text FORMAT =============
     title = "Volcano Plot",
     x = expression(log[2]~Fold~Change),
     y = expression(-log[10]~italic(P-value)),
     color = NULL
   ) +
-  theme_classic() +
+  # theme_classic() +
   theme(
     plot.title = element_text(
       hjust = 0.5,
@@ -407,8 +405,8 @@ gene_expr <- data.frame(
 )
 
 # Box plot with jitter points
-ggplot(gene_expr, aes(x = group, y = expression, fill = group)) +
-  geom_boxplot(outlier.shape = NA) +
+ggplot(gene_expr, aes(x = group, y = expression, fill = group)) +  # data and aesthetics
+  geom_boxplot(outlier.shape = NA) +                                    # 箱线图 
   geom_jitter(width = 0.2, alpha = 0.6, size = 2) +
   scale_fill_manual(values = c("Control" = "#1f77b4", "Treatment" = "#ff7f0e")) +
   labs(title = "Gene Expression by Group", x = "Group", y = "Expression Level") +
@@ -416,14 +414,7 @@ ggplot(gene_expr, aes(x = group, y = expression, fill = group)) +
   theme(legend.position = "none")
 ```
 
-```{r}
-#| label: setup
-#| include: false
 
-# Load required libraries
-library(ggplot2)
-library(dplyr)
-```
 
 # Introduction to ggplot2
 
@@ -446,24 +437,10 @@ The Grammar of Graphics, developed by Leland Wilkinson, provides a structured ap
 
 The basic structure of a ggplot2 plot follows this pattern:
 
-```{r, run=FALSE}
-# Basic ggplot2 structure
-# ggplot(data = <DATA>) +
-#   <GEOM_FUNCTION>(
-#     mapping = aes(<MAPPINGS>)
-#   )
-```
 
 Let's start with a simple example using the built-in `mtcars` dataset:
-
-```{r}
-# Simple scatter plot
-ggplot(data = mtcars) +
-  geom_point(mapping = aes(x = wt, y = mpg))
-```
-
 ## Aesthetics Mapping
-
+  
 Aesthetics define how variables in your data are mapped to visual properties. Common aesthetics include:
 
 - `x` and `y`: Position on x and y axes
@@ -473,9 +450,22 @@ Aesthetics define how variables in your data are mapped to visual properties. Co
 - `alpha`: Transparency (0 = fully transparent, 1 = fully opaque)
 - `shape`: Shape of points
 - `linetype`: Type of line (solid, dashed, etc.)
+  
+
+### Points (`geom_point`)
+```{r}
+# Simple scatter plot
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = wt, y = mpg)) # weight and mpg
+```
+
+两者等同
+```{r}
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
+```
 
 ### Example: Adding Color Based on Cylinders
-
 ```{r}
 # Scatter plot with color mapped to number of cylinders
 ggplot(data = mtcars) +
@@ -488,19 +478,15 @@ Note that we use `factor(cyl)` to treat cylinder count as a categorical variable
 
 Here are some of the most commonly used geometric objects:
 
-### Points (`geom_point`)
-```{r}
-ggplot(mtcars, aes(x = wt, y = mpg)) +
-  geom_point()
-```
-
 ### Lines (`geom_line`)
 ```{r}
 # Create time series data
 time_data <- data.frame(
   time = 1:10,
-  value = cumsum(rnorm(10))
+  value = cumsum(rnorm(10))   # Generate 10 random normal values and compute their cumulative sum
 )
+
+time_data
 
 ggplot(time_data, aes(x = time, y = value)) +
   geom_line()
@@ -508,10 +494,18 @@ ggplot(time_data, aes(x = time, y = value)) +
 
 ### Bars (`geom_bar` and `geom_col`)
 ```{r}
-# geom_bar counts occurrences
+# geom_bar counts occurrences  , 这个只计算频数，不需要y
 ggplot(mtcars, aes(x = factor(cyl))) +
   geom_bar()
+```
 
+```{r}
+# geom_bar counts occurrences      # `geom_col()` requires the following missing aesthetics: y.
+ggplot(mtcars, aes(x = factor(cyl))) +
+  geom_col()                   
+```
+
+```{r}
 # geom_col uses values as heights
 bar_data <- data.frame(
   category = c("A", "B", "C"),
@@ -524,7 +518,7 @@ ggplot(bar_data, aes(x = category, y = value)) +
 
 ### Histograms (`geom_histogram`)
 ```{r}
-ggplot(mtcars, aes(x = mpg)) +
+ggplot(mtcars, aes(x = mpg)) +  # 只计算区间的数字，不需要y
   geom_histogram(bins = 10)
 ```
 
@@ -548,14 +542,14 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 
 Faceting creates multiple plots based on one or more variables:
 
-### `facet_wrap()`: Wraps facets into a grid
+### `facet_wrap()`: Wraps facets into a grid ============================== 气缸数单因素
 ```{r}
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point() +
   facet_wrap(~ cyl)
 ```
 
-### `facet_grid()`: Creates a grid of rows and columns
+### `facet_grid()`: Creates a grid of rows and columns ， 含双因素，重量 * 手动-自动档 
 ```{r}
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point() +
@@ -564,24 +558,29 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 
 ## Scales and Labels
 
-Customize how data maps to visual properties and add informative labels:
 
+Customize how data maps to visual properties and add informative labels:
 ```{r}
 ggplot(mtcars, aes(x = wt, y = mpg, color = hp)) +
   geom_point(size = 3) +
-  scale_color_gradient(low = "blue", high = "red") +
-  labs(
+  scale_color_gradient(low = "blue", high = "red") + ## ================= 渐变色
+  labs(                                              #  =============== 标题等各种标注，但不能设置格式
+    caption = "Data: mtcars"
     title = "Fuel Efficiency vs Weight",
     subtitle = "Colored by Horsepower",
     x = "Weight (1000 lbs)",
     y = "Miles per Gallon",
     color = "Horsepower"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 28),
+    plot.subtitle = element_text(hjust = 0.5, size = 20)  # Center subtitle with size 20
   )
 ```
 
 ## Themes
 
-Themes control the non-data elements of your plot:
+Themes control the non-data elements of your plot: 【主题】控制图表中的非数据元素：
 
 ```{r}
 # Using built-in themes
@@ -596,7 +595,7 @@ p + theme_bw()
 # Custom theme
 p + theme_minimal() +
   theme(
-    plot.title = element_text(size = 16, face = "bold"),
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
     axis.title = element_text(size = 12),
     panel.grid.minor = element_blank()
   ) +
@@ -611,8 +610,10 @@ Save your plots to files:
 #| eval: false
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 
+setwd("/home/gao/projects/Utilities/R_tested_in_R4.5.2/ggplot2/Gemini")
+getwd()
 # Save as PNG
-ggsave("my_plot.png", plot = p, width = 8, height = 6, dpi = 300)
+ggsave("my_plot.png", plot = p, width = 8, height = 6, dpi = 300) # 保存p， 还是把ggplot 对象先保存为变量这种方式好，各种后续处理更方便
 
 # Save as PDF
 ggsave("my_plot.pdf", plot = p, width = 8, height = 6)
@@ -620,7 +621,7 @@ ggsave("my_plot.pdf", plot = p, width = 8, height = 6)
 
 ## Best Practices
 
-1. **Start simple**: Begin with basic plots and add complexity gradually
+1. **Start simple**:               Begin with basic plots and add complexity gradually
 2. **Think about your audience**: Choose appropriate colors, labels, and scales
 3. **Use meaningful labels**: Always label axes and provide clear titles
 4. **Consider colorblindness**: Use color palettes that are accessible to all viewers
@@ -633,29 +634,79 @@ Let's create a more complex, publication-ready plot:
 ```{r}
 # Create sample data
 set.seed(123)
+
+# 这三行代码共同构建了 sample_data 数据框中的 value 列，它们的关系如下：
+
+# 第一部分：基础值
+
+# c(rnorm(50, mean = 5), rnorm(50, mean = 7)) 创建了100个随机数值
+# 前50个来自均值为5的正态分布（Control组）
+# 后50个来自均值为7的正态分布（Treatment组）
+
+# 第二部分：时间趋势
+
+# rep(seq(0, 2, length.out = 10), times = 10) 创建了一个长度为100的序列
+# seq(0, 2, length.out = 10) 生成10个从0到2均匀分布的数值：0.0, 0.22, 0.44, ..., 2.0
+# rep(..., times = 10) 将这10个数值重复10次，形成100个值
+
+# 整体逻辑：
+
+# 每个时间点（1-10）都有10个重复观测值（5个Control + 5个Treatment）
+# 通过将基础随机值加上时间趋势值，使得数据随时间呈现上升趋势
+# 这样创建的数据既有组间差异（Control vs Treatment），又有时间效应（随时间增加）
+# 所以这三行代码是协同工作的：前两行提供组间的基础差异，第三行添加时间相关的趋势成分。
+
 sample_data <- data.frame(
   group = rep(c("Control", "Treatment"), each = 50),
   time = rep(1:10, times = 10),
-  value = c(rnorm(50, mean = 5), rnorm(50, mean = 7)) + 
+  value = c(rnorm(50, mean = 5), 
+            rnorm(50, mean = 7)) + 
           rep(seq(0, 2, length.out = 10), times = 10)
 )
 
+sample_data
+
+# 关键概念解释：
+
+# interaction(group, rep(1:5, each = 10)):
+
+# 创建唯一的分组标识符，确保每个受试者（5个Control + 5个Treatment）都有独立的线条
+
+# rep(1:5, each = 10) 生成 [1,1,...,1, 2,2,...,2, ..., 5,5,...,5]（每个数字重复10次）
+# interaction() 将组别和受试者ID组合，形成10个唯一的组合 Control.1 Control.2 ... Control.10  <==  and   ==> Treatment.1 Treatment.2 ... Treatment.10
+# alpha = 0.3:
+
+# 设置线条透明度为30%，避免多条重叠线造成视觉混乱
+# 允许看到数据的整体模式而不是单个线条
+# geom_smooth(se = TRUE, method = "loess"):
+
+# 添加局部加权回归平滑线
+# se = TRUE 显示置信区间（阴影区域）
+# 自动为每个组别（Control/Treatment）分别计算平滑线
+# 颜色映射:
+
+# Control组使用灰色（"gray50"）
+# Treatment组使用钢蓝色（"steelblue"）
+# 这种配色方案提供良好的对比度且适合黑白打印
+# 这段代码展示了典型的纵向数据分析可视化：用半透明线条显示个体轨迹，用平滑线显示组别趋势。
+
 # Create the plot
-ggplot(sample_data, aes(x = time, y = value, color = group)) +
-  geom_line(aes(group = interaction(group, rep(1:5, each = 10))), 
-            alpha = 0.3) +
-  geom_smooth(se = TRUE, method = "loess") +
-  scale_color_manual(values = c("Control" = "gray50", "Treatment" = "steelblue")) +
-  labs(
+# Create line plot with individual trajectories and smoothed trends
+ggplot(sample_data, aes(x = time, y = value, color = group)) +            # Initialize plot with data and basic aesthetics
+  geom_line(aes(group = interaction(group, rep(1:5, each = 10))),         # Draw individual lines for each subject
+            alpha = 0.6) +                                                # Set transparency to 30% to reduce visual clutter, 我改成了0.6更好
+  geom_smooth(se = TRUE, method = "loess") +                              # Add smoothed trend lines with confidence intervals
+  scale_color_manual(values = c("Control" = "gray50", "Treatment" = "steelblue")) +  # Custom color scheme
+  labs(  # Define plot labels
     title = "Treatment Effect Over Time",
-    x = "Time (hours)",
-    y = "Response Value",
-    color = "Group"
+    x = "Time (hours)",  # X-axis label
+    y = "Response Value",  # Y-axis label  
+    color = "Group"  # Legend title for color mapping
   ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-    legend.position = "bottom"
+  theme_minimal() +  # Apply minimal theme (clean background, no grid lines)
+  theme(  # Customize specific theme elements
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),  # Center title, size 14pt, bold
+    legend.position = "bottom"  # Position legend at bottom of plot
   )
 ```
 
