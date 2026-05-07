@@ -6,7 +6,7 @@ git sparse-checkout add 2026_Item11_Mingxue_with_2_pairs_samples/
 git add -u
 
 
-git commit -m "Rename folder from 2026_Item11_Mingxue to 2026_Item11_Mingxue_with_2_pairs_samples to reflect 2 pairs of samples"
+git commit -m "Rename2 folder from 2026_Item11_Mingxue to 2026_Item11_Mingxue_with_2_pairs_samples to reflect 2 pairs of samples"
 
 
 git push origin master

@@ -1,0 +1,25 @@
+感谢你提供的截图和说明。根据你的描述和上下文，问题的核心是：
+
+虽然 /home/gao/ 目录本身不是一个 Git 仓库（没有运行过 git init），但 Positron 编辑器仍然在源代码管理面板中显示 .gemini/ 文件夹的变更。
+
+这是一个常见的 IDE/编辑器行为误解，而非 Git 全局 ignore 配置的问题。
+
+🔍 问题分析
+从你的截图可以看出，Positron 的 Source Control（源代码管理）面板 正在监控 /home/gao/ 目录下的文件变化，并将 .gemini/ 列为“未追踪文件”。
+
+但这 并不意味着 Git 在追踪它！
+而是因为 Positron 内置的 SCM（Source Control Management）扩展会自动扫描打开的工作区目录，即使该目录不是 Git 仓库，也会尝试检测潜在的版本控制活动或文件变更。
+
+换句话说：
+
+✅ Git 本身 没有 追踪 ~/.gemini/（因为你没在 /home/gao/ 运行 git init）
+❌ 但 Positron 编辑器主动监控了整个工作区，包括隐藏文件夹如 .gemini/
+这正是你在 #experience_lessons_memory 中提到的现象：
+
+“当IDE（如Positron/VS Code）在非Git仓库目录中显示文件变更提示时，应意识到这是IDE的源代码管理扩展独立于Git进行文件监控所致。”
+
+✅ 解决方案：在 Positron 中排除 .gemini 目录
+你需要通过 编辑器设置 来告诉 Positron 不要监视 .gemini 目录。
+
+方法 1：修改工作区设置（推荐）
+在 Positron 的设置中（settings.json），添加以下配置：
