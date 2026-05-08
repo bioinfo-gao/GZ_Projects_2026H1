@@ -51,7 +51,7 @@ nextflow run nf-core/rnaseq \
 
 
 # resume
-#   不要使用 -resume 参数首次运行：我已经在脚本中移除了它，确保首次运行使用全新配置, 
+#   不要使用 -resume 参数首次运行：我已经在脚本中移除了它，确保首次运行使用全新配置,  否则是有可能引用之前的错误配置和缓存， 或者旧配置或缓存 ，第一次意外中断自恨才需要 -resume 
 #　还需要去除上一行的末尾的　\
 # 缓存目录：Singularity 容器会被缓存到 /home/gao/.singularity/nf-core/，避免重复下载
 # 工作目录：Nextflow 的临时工作文件会在 /home/gao/projects/2026_Item12_rRNA/scripts/work/ 目录中生成
