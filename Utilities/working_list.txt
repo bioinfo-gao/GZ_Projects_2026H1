@@ -349,35 +349,39 @@ Date of Submission: May 7, 2026
 Weekly Work Report
 Period: May 15, 2026 – May 21, 2026
 Prepared by: Gao Zhen
-Total Hours: 15 Hours
+Total Hours: 14 Hours
 
-1. Download rawdata and upload to cloud (2 Hours)
-Downloaded rawdata from novagene 
-Restart and Synchronize Dropbox Uploaded to cloud.
-Frequently monitoring the up/down network performance as well as download and upload completeness
+1. Raw Data Management (2 Hours)
+Downloaded raw sequencing data from Novogene.
+Synchronized and uploaded files to cloud storage via Dropbox.
+Monitored network performance and verified data integrity for both download and upload processes.
 
-2. Add RNAseq new comparison group to custom (2 Hours)
-Corrected the RNA down-regulated threhold from 1 to 1/1.5 (0.67)
-Corrected the RNA up-regulated threhold from 1.1 to 1.5
-Changed the whole table definition and up-regelatin and down-regelation the changes to the control (The latter(B) of A-vs-B in file name)
-remove the huge amount of DE gene with very few reads ( e.g. , 3 5 7 vs 0 0 1)
-Add the DE gene to the custom 
+2. RNA-seq Custom Group Integration (2.5 Hours)
+Adjusted Differential Expression (DE) thresholds: Down-regulated (0.67) and Up-regulated (1.5).
+Refined table definitions to standardize "A-vs-B" comparison directions (Control vs. Treatment).
+Filtered low-quality DE genes with insufficient read counts to minimize data noise.
+Generated DE gene reports for new comparison groups using updated analytical methodologies.
 
-3. Opossum Genome and Transcriptome Research (3 Hours)
-Literature Review: Conducted an extensive review of methodologies for transcriptome assembly from earlier publication.
-Strategy Development: Researched current best practices for Opossum transcriptome isoform discovery and differential expression (DE) analysis.
-Write and report the results.
+3. DNA Degradation Analysis & Validation (5.5 Hours)
+Fragmentation Analysis: Confirmed severe degradation via fastp, identifying ultra-short 58–60 bp inserts and >97% merge rates.
+Genomic Validation: Identified high GC bias (60–65%) and 98% sequence uniqueness, confirming biological origin rather than technical primer artifacts.
+Structural Audit: Manually verified genomic-to-adapter transitions to map fragmentation patterns.
+Strategic Outcome: Provided scientific justification to pivot the project strategy, preventing further resource waste on compromised data.
 
-4. Technical Consultation & Project Planning (2.5 Hours)
-Developed a performance improvement plan for the computation server to optimize processing speeds.
-Consulted on RNA-seq source types and the impact of biological variation on data quality.
-Discussed the analysis strategies for projects lacking biological replicates (non-replicated samples).
-Coordinated with new staff regarding standardized formats and storage locations for sample-sheets.
+4. Technical Consultation & Reporting for internal team and customs (2.5 Hours)
+Drafted the corrected rationale for DE significance for team and clients.
+Authored a professional DNA Degradation Analysis Report detailing the debugging process and root-cause findings.
+Briefed the team on insert size research strategies, GC content bias, and sequence complexity validation.
+
+5. System Monitoring & Maintenance (1.5 Hours)
+Monitored memory usage and storage capacity for upcoming hardware upgrades.
+Evaluated disk write speeds and overall system stability.
+Verified automatic start-up protocols for essential analysis software.
+
+Total Hours Worked: 14 Hours
+Date of Submission: May 21, 2026
+
+===============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
 5. Research about how to intergrtate the experienced staff's procedures to biomin (5 Hours)
 
-
-
-Total Hours Worked: 15 Hours
-Date of Submission: May 21, 2026
-===============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
